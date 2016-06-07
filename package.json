@@ -1,0 +1,34 @@
+{
+  "name": "video-cache",
+  "version": "1.0.0",
+  "description": "Preload a set of videos and keep them in memory to avoid reloading them on page change.",
+  "main": "index.js",
+  "scripts": {
+    "test": "browserify test/index.js | tap-closer | smokestack | faucet",
+    "test-debug": "budo test/index.js --live"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/watsondg/video-cache.git"
+  },
+  "keywords": [
+    "video",
+    "cache",
+    "load"
+  ],
+  "author": "Florian Morel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/watsondg/video-cache/issues"
+  },
+  "homepage": "https://github.com/watsondg/video-cache#readme",
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "smokestack": "^3.4.1",
+    "tap-closer": "^1.0.0",
+    "tape": "^4.5.1"
+  },
+  "dependencies": {
+    "tiny-emitter": "^1.0.2"
+  }
+}
