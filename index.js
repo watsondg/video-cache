@@ -13,6 +13,8 @@ function VideoCache(options) {
     this.totalAssets = 0;
     this.cache = Object.create(null); // Pure hash, no prototype
     this.el = document.createElement('div');
+    this.el.style.display = 'none';
+    document.body.appendChild(this.el);
 
     this.onError = this.onError.bind(this);
 }
@@ -106,6 +108,7 @@ VideoCache.prototype.destroy = function() {
         if (video.remove) video.remove();
         else video.parentNode.removeChild(video);
     }
+    this.el.parentNode.removeChild(this.el);
     this.cache = null;
 };
 
