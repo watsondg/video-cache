@@ -6,6 +6,7 @@ var Emitter = require('tiny-emitter');
 
 module.exports = VideoCache;
 function VideoCache(options) {
+    options = options || {};
     this.baseURL = options.baseURL || '';
     this.formats = options.formats || ['webm', 'mp4', 'ogv', 'ogg'];
     this.eventName = options.eventName || 'canplaythrough';
