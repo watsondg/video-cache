@@ -54,11 +54,12 @@ Load an array of videos and append them to the cache.
 - objects containing `path` to video and `formats` array (will take priority over the formats option).
 
 
-### get(id)
+### get(id[, addToCache])
 
-Retrieve a video from the cache. If it doesn't exist or isn't loaded, return a new video and add it to the cache.
+Retrieve a video from the cache. If it doesn't exist or isn't loaded, return a new video.
 Make the video ready for playback (unmute, reset currentTime).
 * `id` - the video path used for loading, minus the baseURL.
+* `addToCache` - if true, add the created video to the cache if not already in it.
 
 
 ### clear(id)

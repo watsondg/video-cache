@@ -77,11 +77,11 @@ VideoCache.prototype.onError = function(error) {
     this.emit('error', error);
 };
 
-VideoCache.prototype.get = function(id) {
+VideoCache.prototype.get = function(id, addToCache) {
     if (!this.cache) throw new Error('VideoCache has been destroyed.');
 
     var video = this.cache[id] || createVideo(id, this.baseURL, this.formats);
-    if (!this.cache[id]) this.cache[id] = video;
+    if (addToCache && !this.cache[id]) this.cache[id] = video;
 
     video.muted = false;
     if (video.readyState > 3) video.currentTime = 0;
