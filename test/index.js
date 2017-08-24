@@ -27,22 +27,22 @@ test('Video load test', function(assert) {
 });
 
 // test video format
-// test('Formats test', function(assert) {
-//     var videoCache = new VideoCache({
-//         formats: FORMATS,
-//         baseURL: BASE
-//     });
-//     videoCache.once('load', function() {
-//         var video = videoCache.get(VIDEO_NAME);
-//         assert.ok(video.children.length === 1, 'The video should have only one source.');
-//         videoCache.destroy();
-//         assert.end();
-//     });
-//     videoCache.load([{
-//         path: VIDEO_NAME,
-//         formats: ['mp4']
-//     }]);
-// });
+test('Formats test', function(assert) {
+    var videoCache = new VideoCache({
+        formats: FORMATS,
+        baseURL: BASE
+    });
+    videoCache.once('load', function() {
+        var video = videoCache.get(VIDEO_NAME);
+        assert.ok(video.children.length === 1, 'The video should have only one source.');
+        videoCache.destroy();
+        assert.end();
+    });
+    videoCache.load([{
+        path: VIDEO_NAME,
+        formats: ['mp4']
+    }]);
+});
 
 // test get + play
 test('Playback test', function(assert) {
@@ -85,6 +85,25 @@ test('Clear playback test', function(assert) {
     });
     videoCache.load([VIDEO_NAME]);
 });
+
+// test CORS
+test('CORS test', function(assert) {
+    var anonymous = 'anonymous';
+    var videoCache = new VideoCache({
+        formats: FORMATS,
+        baseURL: BASE,
+        crossOrigin: anonymous
+    });
+    videoCache.once('load', function() {
+        var video = videoCache.get(VIDEO_NAME);
+        assert.ok(video.crossOrigin == anonymous, 'Video CORS should be anonymous.');
+        videoCache.clear(VIDEO_NAME);
+        videoCache.destroy();
+        assert.end();
+    });
+    videoCache.load([VIDEO_NAME]);
+});
+
 
 // test destroy
 test('Destroy test', function(assert) {

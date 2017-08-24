@@ -12,6 +12,7 @@ function VideoCache(options) {
     this.eventName = options.eventName || 'canplaythrough';
     this.assetsLoaded = 0;
     this.totalAssets = 0;
+    this.crossOrigin = options.crossOrigin;
     this.cache = Object.create(null); // Pure hash, no prototype
     this.el = document.createElement('div');
     this.el.style.display = 'none';
@@ -44,8 +45,8 @@ VideoCache.prototype.load = function(videos) {
         else video['on' + this.eventName] = onVideoReady;
 
         // Add source for every URL (format)
+        video.crossOrigin = this.crossOrigin;
         addSources(video, this.baseURL + videoId, formats);
-
         video.muted = true;
         video.loop = true;
         video.preload = 'metadata';
@@ -80,7 +81,7 @@ VideoCache.prototype.onError = function(error) {
 VideoCache.prototype.get = function(id, addToCache) {
     if (!this.cache) throw new Error('VideoCache has been destroyed.');
 
-    var video = this.cache[id] || createVideo(id, this.baseURL, this.formats);
+    var video = this.cache[id] || createVideo(id, this.baseURL, this.formats, this.crossOrigin);
     if (addToCache && !this.cache[id]) this.cache[id] = video;
 
     video.muted = false;
@@ -124,9 +125,10 @@ function addSources(video, url, formats) {
     video.innerHTML = source;
 }
 
-function createVideo(url, baseURL, formats) {
+function createVideo(url, baseURL, formats, crossOrigin) {
     var video = document.createElement('video');
     var videoId = url.path || url;
+    video.crossOrigin = crossOrigin;
     addSources(video, baseURL + videoId, formats);
     return video;
 }
