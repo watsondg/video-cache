@@ -43,6 +43,7 @@ Create a new instance of VideoCache.
 - baseURL: the baseURL to prepend to all video paths.
 - formats: limit and order supported formats. Defaults to `webm, mp4, ogv, ogg`.
 - eventName: The event used to detect video load. Defaults to `canplaythrough`.
+- crossOrigin: CORS attribute. Defaults to `undefined` (no CORS).
 
 
 ### load(videos)
